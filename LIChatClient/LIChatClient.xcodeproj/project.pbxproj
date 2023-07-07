@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,7 @@
 		588D70732A57131200B250DA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 588D70712A57131200B250DA /* Main.storyboard */; };
 		588D70752A57131300B250DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 588D70742A57131300B250DA /* Assets.xcassets */; };
 		588D70782A57131300B250DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 588D70762A57131300B250DA /* LaunchScreen.storyboard */; };
+		588D70892A585C6900B250DA /* ShadowButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 588D70882A585C6900B250DA /* ShadowButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		588D70742A57131300B250DA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		588D70772A57131300B250DA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		588D70792A57131300B250DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		588D70882A585C6900B250DA /* ShadowButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,88 @@
 		588D706A2A57131200B250DA /* LIChatClient */ = {
 			isa = PBXGroup;
 			children = (
-				588D706B2A57131200B250DA /* AppDelegate.swift */,
-				588D706D2A57131200B250DA /* SceneDelegate.swift */,
-				588D706F2A57131200B250DA /* ViewController.swift */,
-				588D70712A57131200B250DA /* Main.storyboard */,
-				588D70742A57131300B250DA /* Assets.xcassets */,
+				588D70842A57191000B250DA /* MessageScreen */,
+				588D70832A5718EF00B250DA /* Assets */,
+				588D70822A5718E800B250DA /* Core */,
+				588D707F2A57171000B250DA /* LoginScreen */,
 				588D70762A57131300B250DA /* LaunchScreen.storyboard */,
 				588D70792A57131300B250DA /* Info.plist */,
 			);
 			path = LIChatClient;
+			sourceTree = "<group>";
+		};
+		588D707F2A57171000B250DA /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				588D70872A5830D000B250DA /* Presentors */,
+				588D70812A57188100B250DA /* Views */,
+				588D70802A57187700B250DA /* Controllers */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		588D70802A57187700B250DA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				588D706F2A57131200B250DA /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		588D70812A57188100B250DA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				588D70712A57131200B250DA /* Main.storyboard */,
+				588D70882A585C6900B250DA /* ShadowButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		588D70822A5718E800B250DA /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				588D706B2A57131200B250DA /* AppDelegate.swift */,
+				588D706D2A57131200B250DA /* SceneDelegate.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		588D70832A5718EF00B250DA /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				588D70742A57131300B250DA /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		588D70842A57191000B250DA /* MessageScreen */ = {
+			isa = PBXGroup;
+			children = (
+				588D70862A57192500B250DA /* Controllers */,
+				588D70852A57191F00B250DA /* Views */,
+			);
+			path = MessageScreen;
+			sourceTree = "<group>";
+		};
+		588D70852A57191F00B250DA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		588D70862A57192500B250DA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		588D70872A5830D000B250DA /* Presentors */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Presentors;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -103,7 +178,7 @@
 				};
 			};
 			buildConfigurationList = 588D70632A57131200B250DA /* Build configuration list for PBXProject "LIChatClient" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -141,6 +216,7 @@
 				588D70702A57131200B250DA /* ViewController.swift in Sources */,
 				588D706C2A57131200B250DA /* AppDelegate.swift in Sources */,
 				588D706E2A57131200B250DA /* SceneDelegate.swift in Sources */,
+				588D70892A585C6900B250DA /* ShadowButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

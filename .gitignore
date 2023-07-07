@@ -1,5 +1,8 @@
 ## User settings
 xcuserdata/
 
+# Remove .DS_Store
+.DS_Store
+
 # CocoaPods
 Pods/
