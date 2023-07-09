@@ -12,20 +12,5 @@ public class Main {
     public static void main(String[] args) {
         AuthorizationService authorizationService = new AuthorizationService();
         System.out.println(authorizationService.signIn(new Account("Ilya","123")));
-//        SessionFactory factory = new Configuration()
-//                .configure("hibernate.cfg.xml")
-//                .addAnnotatedClass(Account.class)
-//                .buildSessionFactory();
-//
-//        try {
-//            Session session = factory.getCurrentSession();
-//            Account account = new Account("Leonid", "123");
-//            session.beginTransaction();
-//            session.save(account);
-//            session.getTransaction().commit();
-//            session.close();
-//        }finally {
-//            factory.close();
-//        }
     }
 }
