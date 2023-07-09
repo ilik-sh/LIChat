@@ -3,3 +3,7 @@ xcuserdata/
 
 # CocoaPods
 Pods/
+
+.idea/
+*.iml
+*.iws
