@@ -25,7 +25,11 @@ public class RegistrationController {
             throw new IllegalArgumentException();
         }
         if (rightArguments(username,password,passwordConfirm)){
-            userService.saveUser(new User(username,password,passwordConfirm));
+            User saveUser = new User();
+            saveUser.setUsername(username);
+            saveUser.setPassword(password);
+            saveUser.setPasswordConfirm(passwordConfirm);
+            userService.saveUser(saveUser);
             return true;
         }else return false;
     }

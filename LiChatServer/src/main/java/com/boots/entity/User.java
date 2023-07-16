@@ -49,12 +49,6 @@ public class User implements UserDetails {
         this.passwordConfirm = passwordConfirm;
     }
 
-    public User(String username, String password, String passwordConfirm) {
-        this.username=username;
-        this.password=password;
-        this.passwordConfirm=passwordConfirm;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
