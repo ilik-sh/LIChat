@@ -19,12 +19,12 @@ public class User implements UserDetails {
     @Setter
     private Long id;
 
-    @Size(min=2, message = "Не меньше 5 знаков")
+    @Size(min=2, message = "Не меньше 2 знаков")
     @Getter
     @Setter
     private String username;
 
-    @Size(min=2, message = "Не меньше 5 знаков")
+    @Size(min=2, message = "Не меньше 2 знаков")
     @Getter
     @Setter
     private String password;
@@ -47,6 +47,12 @@ public class User implements UserDetails {
         this.username = username;
         this.password = password;
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public User(String username, String password, String passwordConfirm) {
+        this.username=username;
+        this.password=password;
+        this.passwordConfirm=passwordConfirm;
     }
 
     @Override

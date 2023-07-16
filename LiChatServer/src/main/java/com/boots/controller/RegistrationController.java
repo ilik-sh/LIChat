@@ -4,13 +4,10 @@ import com.boots.entity.User;
 import com.boots.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
 
 @Controller
 public class RegistrationController {
@@ -18,28 +15,24 @@ public class RegistrationController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/registration")
-    public String registration(Model model) {
-        model.addAttribute("userForm", new User());
-
-        return "registration";
-    }
-
     @PostMapping("/registration")
-    public String addUser(@ModelAttribute("userForm") @Valid User userForm, BindingResult bindingResult, Model model) {
+    public boolean addUser(@RequestParam(required = true)String username,
+                          @RequestParam(required = true)String password,
+                          @RequestParam(required = true)String passwordConfirm,
+                          BindingResult bindingResult) {
 
         if (bindingResult.hasErrors()) {
-            return "registration";
+            throw new IllegalArgumentException();
         }
-        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-            model.addAttribute("passwordError", "Пароли не совпадают");
-            return "registration";
-        }
-        if (!userService.saveUser(userForm)){
-            model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
-            return "registration";
-        }
+        if (rightArguments(username,password,passwordConfirm)){
+            userService.saveUser(new User(username,password,passwordConfirm));
+            return true;
+        }else return false;
+    }
 
-        return "redirect:/";
+    private boolean rightArguments(String username, String password, String passwordConfirm){
+        if(password.equals(passwordConfirm)){
+            return userService.findUserByUsername(username) == null;
+        }else return false;
     }
 }

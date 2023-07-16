@@ -20,7 +20,7 @@ import java.util.Optional;
 @Service
 public class UserService implements UserDetailsService {
     @PersistenceContext
-    private EntityManager em;
+    private EntityManager entityManager;
     @Autowired
     UserRepository userRepository;
     @Autowired
@@ -31,30 +31,25 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-
         return user;
     }
 
     public User findUserById(Long userId) {
         Optional<User> userFromDb = userRepository.findById(userId);
-        return userFromDb.orElse(new User());
+        if(!userFromDb.isPresent()) throw new IllegalArgumentException();
+        return userFromDb.orElse(null);
     }
-
     public List<User> allUsers() {
         return userRepository.findAll();
     }
+    public User findUserByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
 
     public boolean saveUser(User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
-
-        if (userFromDB != null) {
-            return false;
-        }
-
         user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
@@ -74,7 +69,7 @@ public class UserService implements UserDetailsService {
     }
 
     public List<User> usergtList(Long idMin) {
-        return em.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
+        return entityManager.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
                 .setParameter("paramId", idMin).getResultList();
     }
 }

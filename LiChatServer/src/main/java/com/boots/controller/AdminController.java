@@ -1,44 +1,46 @@
 package com.boots.controller;
 
+import com.boots.entity.User;
 import com.boots.service.UserService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 public class AdminController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/admin")
-    public String userList(Model model) {
-        model.addAttribute("allUsers", userService.allUsers());
-        return "admin";
+    @GetMapping("/admin/getAllUsers")
+    public JSONObject userList() {
+        List<User> users = userService.allUsers();
+        JSONObject returnJSON = new JSONObject();
+        returnJSON.put("Users",users);
+        return returnJSON;
     }
 
-    @PostMapping("/admin")
-    public String  deleteUser(@RequestParam(required = true, defaultValue = "" ) Long userId,
-                              @RequestParam(required = true, defaultValue = "" ) String action,
-                              Model model) {
-        if (action.equals("delete")){
-            userService.deleteUser(userId);
-        }
-        return "redirect:/admin";
+    @PostMapping("/admin/delete")
+    public boolean deleteUser(@RequestParam(required = true, defaultValue = "" ) Long userId) {
+        if(isUserPresent(userId)) return userService.deleteUser(userId);
+        else throw new IllegalArgumentException();
     }
 
-    @GetMapping("/check")
-    public String checker(Model model){
-        System.out.println(userService.getPassword(2));
-        return "admin";
+    @GetMapping("/admin/getUser")
+    public JSONObject getUser(@RequestParam(required = true, defaultValue = "") Long userId) {
+        JSONObject returnJSON = new JSONObject();
+        User returnUser = userService.findUserById(userId);
+        returnJSON.put("username",returnUser.getUsername());
+        returnJSON.put("password",returnUser.getPassword());
+        returnJSON.put("Roles",returnUser.getRoles());
+        return returnJSON;
     }
 
-    @GetMapping("/admin/gt/{userId}")
-    public String  gtUser(@PathVariable("userId") Long userId, Model model) {
-        model.addAttribute("allUsers", userService.usergtList(userId));
-        return "admin";
+    private boolean isUserPresent(Long userId){
+        return userService.findUserById(userId)!=null;
     }
 }
