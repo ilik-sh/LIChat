@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService implements UserDetailsService{
     @PersistenceContext
     private EntityManager entityManager;
     @Autowired
@@ -37,29 +37,14 @@ public class UserService implements UserDetailsService {
         return user;
     }
 
-    public User findUserById(Long userId) {
-        Optional<User> userFromDb = userRepository.findById(userId);
-        if(!userFromDb.isPresent()) throw new IllegalArgumentException();
-        return userFromDb.orElse(null);
-    }
-    public List<User> allUsers() {
-        return userRepository.findAll();
-    }
-    public User findUserByUsername(String username){
-        return userRepository.findByUsername(username);
-    }
-
     public boolean saveUser(User user) {
-        user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
-        return true;
+        if (findUserByUsername(user.getUsername())!=null) {
+            user.setRoles(Collections.singleton(new Role(2L, "ROLE_USER")));
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+            return true;
+        }else return false;
     }
-
-    public String getPassword(long id){
-        return bCryptPasswordEncoder.encode("123");
-    }
-
     public boolean deleteUser(Long userId) {
         if (userRepository.findById(userId).isPresent()) {
             userRepository.deleteById(userId);
@@ -68,8 +53,16 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public List<User> usergtList(Long idMin) {
-        return entityManager.createQuery("SELECT u FROM User u WHERE u.id > :paramId", User.class)
-                .setParameter("paramId", idMin).getResultList();
+
+    public User findUserById(Long userId) {
+        Optional<User> userFromDb = userRepository.findById(userId);
+        if(!userFromDb.isPresent()) throw new IllegalArgumentException();
+        return userFromDb.orElse(null);
+    }
+    public User findUserByUsername(String username){
+        return userRepository.findByUsername(username);
+    }
+    public List<User> allUsers() {
+        return userRepository.findAll();
     }
 }

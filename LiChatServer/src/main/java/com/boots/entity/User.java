@@ -6,25 +6,22 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Table(name = "account")
-public class User implements UserDetails {
+public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     @Setter
     private Long id;
 
-    @Size(min=2, message = "Не меньше 2 знаков")
     @Getter
     @Setter
     private String username;
 
-    @Size(min=2, message = "Не меньше 2 знаков")
     @Getter
     @Setter
     private String password;

@@ -16,22 +16,16 @@ public class RegistrationController {
     private UserService userService;
 
     @PostMapping("/registration")
-    public boolean addUser(@RequestParam(required = true)String username,
+    public void addUser(@RequestParam(required = true)String username,
                           @RequestParam(required = true)String password,
-                          @RequestParam(required = true)String passwordConfirm,
-                          BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            throw new IllegalArgumentException();
-        }
+                          @RequestParam(required = true)String passwordConfirm) {
         if (rightArguments(username,password,passwordConfirm)){
             User saveUser = new User();
             saveUser.setUsername(username);
             saveUser.setPassword(password);
             saveUser.setPasswordConfirm(passwordConfirm);
             userService.saveUser(saveUser);
-            return true;
-        }else return false;
+        }else throw new IllegalArgumentException();
     }
 
     private boolean rightArguments(String username, String password, String passwordConfirm){
