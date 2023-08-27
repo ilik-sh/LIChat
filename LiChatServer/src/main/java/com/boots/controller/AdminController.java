@@ -2,7 +2,6 @@ package com.boots.controller;
 
 import com.boots.entity.User;
 import com.boots.service.UserService;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
