@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "account")
-public class User implements UserDetails{
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
@@ -32,7 +32,6 @@ public class User implements UserDetails{
     private String passwordConfirm;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @Getter
     @Setter
     private Set<Role> roles;
 
@@ -47,8 +46,16 @@ public class User implements UserDetails{
     }
 
     @Override
+    public String toString() {
+        return  "id=" + id +
+                ", username='" + username +
+                ", password='" + password +
+                ", roles=" + roles;
+    }
+
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return getRoles();
+        return roles;
     }
 
     @Override

@@ -8,8 +8,8 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "t_role")
-public class Role implements GrantedAuthority{
+@Table(name = "role")
+public class Role implements GrantedAuthority {
     @Id
     @Getter
     @Setter
@@ -33,6 +33,6 @@ public class Role implements GrantedAuthority{
 
     @Override
     public String getAuthority() {
-        return getName();
+        return name;
     }
 }

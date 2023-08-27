@@ -3,28 +3,31 @@ package com.boots.controller;
 import com.boots.entity.User;
 import com.boots.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
-@Controller
+
+
+@RestController
 public class RegistrationController {
 
     @Autowired
     private UserService userService;
 
     @PostMapping("/registration")
-    public void addUser(@RequestParam(required = true)String username,
-                          @RequestParam(required = true)String password,
-                          @RequestParam(required = true)String passwordConfirm) {
+    public ResponseEntity addUser(@RequestParam(required = true)String username,
+                                  @RequestParam(required = true)String password,
+                                  @RequestParam(required = true)String passwordConfirm) {
         if (rightArguments(username,password,passwordConfirm)){
             User saveUser = new User();
             saveUser.setUsername(username);
             saveUser.setPassword(password);
             saveUser.setPasswordConfirm(passwordConfirm);
             userService.saveUser(saveUser);
+            return ResponseEntity.ok("200");
         }else throw new IllegalArgumentException();
     }
 
