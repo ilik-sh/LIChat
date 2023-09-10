@@ -14,7 +14,11 @@ public class MessageService {
 
     public List<Message> getNewMessages(String addressee){
         List<Message> messages = messageRepository.findByAddressee(addressee);
-//        messageRepository.removeByAddressee(addressee);
+        for (Message message: messages) {
+            if (messageRepository.findById(message.getId()).isPresent()) {
+                messageRepository.deleteById(message.getId());
+            }
+        }
         return messages;
     }
 
